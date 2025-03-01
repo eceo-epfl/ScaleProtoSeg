@@ -1,0 +1,3 @@
+[submodule "deeplab_pytorch"]
+	path = deeplab_pytorch
+	url = git@github.com:hugoporta/deeplab-pytorch.git

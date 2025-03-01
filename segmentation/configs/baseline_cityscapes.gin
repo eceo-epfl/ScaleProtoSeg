@@ -1,0 +1,58 @@
+Trainer.gpus = 1
+
+construct_PPNet.base_architecture = 'deeplabv2_resnet101'
+construct_PPNet.pretrained = False
+
+construct_PPNet.prototype_shape = (190, 64, 1, 1)
+construct_PPNet.num_classes = 19
+construct_PPNet.prototype_activation_function = 'log'
+construct_PPNet.add_on_layers_type = 'deeplab_simple'
+
+deeplabv2_resnet101_features.deeplab_n_features = 64
+deeplabv2_resnet101_features.scales = []
+
+train.random_seed = 20220227
+train.load_coco = False
+train.early_stopping_patience_last_layer = 100
+train.start_checkpoint = ''
+
+train.warmup_steps = 15000 # 3000 batches
+train.finetune_steps = 10000 # 2000 batches
+train.joint_steps = 150000 # 30000 batches
+train.warmup_batch_size = 2
+train.joint_batch_size = 2
+train.data_type = 'cityscapes'
+
+PatchClassificationDataset.data_type = 'cityscapes'
+PatchClassificationDataset.mean = [0.485, 0.456, 0.406]
+PatchClassificationDataset.std = [0.229, 0.224, 0.225]
+PatchClassificationDataset.image_margin_size = 0
+PatchClassificationDataset.window_size = (513, 513)
+PatchClassificationDataset.only_19_from_cityscapes = True
+PatchClassificationDataset.scales = (0.5, 1.5)
+
+PatchClassificationDataModule.dataloader_n_jobs = 8
+PatchClassificationDataModule.train_key = 'train'
+PatchClassificationDataModule.data_type = 'cityscapes'
+
+PatchClassificationModule.loss_weight_crs_ent = 1.0
+PatchClassificationModule.loss_weight_l1 = 1e-4
+PatchClassificationModule.loss_weight_kld = 0.25
+
+PatchClassificationModule.joint_optimizer_lr_features = 2.5e-5
+PatchClassificationModule.joint_optimizer_lr_add_on_layers = 2.5e-4
+PatchClassificationModule.joint_optimizer_lr_prototype_vectors = 2.5e-4
+PatchClassificationModule.joint_optimizer_weight_decay = 5e-4
+
+PatchClassificationModule.warm_optimizer_lr_add_on_layers = 2.5e-4
+PatchClassificationModule.warm_optimizer_lr_prototype_vectors = 2.5e-4
+PatchClassificationModule.warm_optimizer_weight_decay = 5e-4
+
+PatchClassificationModule.last_layer_optimizer_lr = 1e-5
+
+PatchClassificationModule.ignore_void_class = True
+PatchClassificationModule.poly_lr_power = 0.9
+PatchClassificationModule.iter_size = 5
+
+PPNet.bottleneck_stride = 1
+PPNet.patch_classification = True
