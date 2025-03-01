@@ -59,7 +59,7 @@ PatchClassificationModuleMultiScale.joint_no_proto = False
 PatchClassificationModuleMultiScale.joint_last = True
 PatchClassificationModuleMultiScale.freeze_type = "none"
 
-PPNetMultiScale.bottleneck_stride = 1
-PPNetMultiScale.patch_classification = True
-PPNetMultiScale.num_scales = 4
-PPNetMultiScale.num_groups = 3
+segmentation.model.model_multiscale_group.PPNetMultiScale.bottleneck_stride = 1
+segmentation.model.model_multiscale_group.PPNetMultiScale.patch_classification = True
+segmentation.model.model_multiscale_group.PPNetMultiScale.num_scales = 4
+segmentation.model.model_multiscale_group.PPNetMultiScale.num_groups = 3
